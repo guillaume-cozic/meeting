@@ -7,6 +7,8 @@ J'utilise TypeOrm comme ORM mais je cantonne strictement son utilisation dans la
 J'expose les données de mon aggrégat via le "pattern memento" pour éviter d'avoir des getters dans l'objet. Le pattern memento se situe dans la couche d'infrastructure. En faisant comme ça je peux me consacrer à l'écriture de test unitaire qui ne teste que de la logique métier
 
 
+Mea Culpa : pas de test sur les crontrolleurs, la configuration sur les tests de l'infrastucture est à revoir 
+
 Tests 
 
 To run use case test put ENV variable to testing and run: 
