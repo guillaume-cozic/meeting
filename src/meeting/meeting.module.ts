@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { MeetingController} from './meeting.controller';
+import { MeetingController} from './application/http/meeting.controller';
 import { PlanMeeting } from './application/usecase/plan.meeting';
 import { MeetingRepositoryProvider } from './application/providers/provider';
 import { GenerateMeetingReport } from './application/usecase/generate.meeting.report';

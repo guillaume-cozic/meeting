@@ -4,6 +4,7 @@ import { MeetingRepository, MEETING_REPOSITORY } from "./../../domain/ports/meet
 import { MeetingRepositoryProvider } from "../providers/provider";
 import { GenerateMeetingReport } from "./generate.meeting.report";
 import { ConfigModule } from '@nestjs/config';
+import { MeetingNotFound } from "../../domain/exception/meeting.not.found";
 
 describe('generate meeting minute', () => {
     let generateMeetingReport:GenerateMeetingReport;
@@ -24,9 +25,9 @@ describe('generate meeting minute', () => {
         it('meeting not found', async () => { 
             try{
                 await generateMeetingReport.execute('123456');
-                fail();
+                expect(false).toBeNull();
             }catch(error){
-                expect(error).toEqual('meeting not found');
+                expect(error).toEqual(new MeetingNotFound('Meeting : 123456 not found'));
             }
         });
         

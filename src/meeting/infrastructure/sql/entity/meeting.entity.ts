@@ -1,5 +1,6 @@
 import Meeting from './../../../domain/meeting';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { MeetingVo } from 'src/meeting/domain/vo/meeting.vo';
 
 @Entity({name:'meeting'})
 export class MeetingEntity{
@@ -51,11 +52,11 @@ export class MeetingEntity{
         return new Meeting(this.uuid, this.date.getTime(), this.title, this.agenda, this.participants);
     }
 
-    toVo():{id, date, title, agenda, participants, actions}{
+    toVo():MeetingVo{
         return {
             id: this.uuid,
             date: this.date,
-            title: this.title,
+            name: this.title,
             agenda: this.agenda,
             participants: this.participants,
             actions: []
