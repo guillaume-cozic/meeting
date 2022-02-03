@@ -5,6 +5,7 @@ import {Connection, getRepository} from 'typeorm';
 
 
 import { Injectable } from "@nestjs/common";
+import { MeetingVo } from "src/meeting/domain/vo/meeting.vo";
 
 @Injectable()
 export class SqlMeetingRepository implements MeetingRepository{
@@ -38,7 +39,7 @@ export class SqlMeetingRepository implements MeetingRepository{
         }
     }
 
-    async getVo(id: string): Promise<{id, date, title, agenda, participants, actions}> {
+    async getVo(id: string): Promise<MeetingVo> {
         const entity = await getRepository(MeetingEntity).findOne({where : {uuid:id}});
         return entity?.toVo();
     }

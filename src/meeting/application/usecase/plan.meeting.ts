@@ -1,6 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { MeetingRepository, MEETING_REPOSITORY } from "../../domain/ports/meeting.repository";
 import Meeting from "../../domain/meeting";
+import { DomainException } from "../../../shared/Domain/exception/domain.exception";
 
 @Injectable()
 export class PlanMeeting{
@@ -17,6 +18,6 @@ export class PlanMeeting{
 
     private async checkIfMeetingAlreadyRegistered(id: string):Promise<void> {
         let meeting: Meeting = await this.meetingRepository.get(id);
-        if (meeting !== undefined) throw 'id already exist';
+        if (meeting !== undefined) throw new DomainException('id already exist');
     }
 }

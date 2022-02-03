@@ -5,6 +5,7 @@ import { MeetingRepositoryProvider } from "../providers/provider";
 import { InviteParticipantsToMeeting } from "./invite.participants.to.meeting";
 import { DomainError } from "./../../../shared/Domain/Error";
 import { ConfigModule } from '@nestjs/config';
+import { MeetingNotFound } from "../../domain/exception/meeting.not.found";
 
 describe('invite participants to meeting', () => {
     let inviteParticipantsToMeeting:InviteParticipantsToMeeting;
@@ -27,7 +28,7 @@ describe('invite participants to meeting', () => {
                 await inviteParticipantsToMeeting.execute('1', []);
                 expect(false).toEqual(true);
             }catch(error){
-                expect(error).toEqual('meeting not found');
+                expect(error).toEqual(new MeetingNotFound('meeting : 1 not found'));
             }
         });
     })
