@@ -6,6 +6,7 @@ import { MeetingRepositoryProvider } from "../providers/provider";
 import { DateTimeGatewayProvider } from "../../../shared/provider/datetime.gateway.provider";
 import { DateTimeGateway, DATE_TIME_GATEWAY } from "../../../shared/datetime.gateway";
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { DomainException } from "../../../shared/Domain/exception/domain.exception";
 
 
 describe('plan a meeting', () => {
@@ -49,7 +50,7 @@ describe('plan a meeting', () => {
                 await planMeeting.execute('meeting_id', Date.now(), 'name');
                 expect(false).toEqual(true);
             }catch(error){
-                expect(error).toEqual('id already exist');
+                expect(error).toEqual(new DomainException('id already exist'));
             }
         });
 
@@ -58,7 +59,7 @@ describe('plan a meeting', () => {
                 await planMeeting.execute('meeting_id', Date.now() - 100, 'name');
                 expect(false).toEqual(true);
             }catch(error){
-                expect(error).toEqual('date in the past');
+                expect(error).toEqual(new DomainException('date in the past'));
             }
         });
     });

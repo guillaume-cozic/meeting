@@ -38,7 +38,7 @@ export class MeetingController {
   @Put(':id/invite/participants')
   @UseFilters(new NotFoundExceptionFilter())
   async inviteParticipantsRoute(@Param('id') id: string, @Body() inviteParticipantsDto:InviteParticipantsDto, @Res() res: Response, @Req() req: Request): Promise<Response> {
-      let errors = await this.inviteParticipants.execute(id, inviteParticipantsDto.participants );
+      let errors = await this.inviteParticipants.execute(id, inviteParticipantsDto.participants);
       return res.status(HttpStatus.OK).send({id:id, uri: 'http://'+req.hostname+':3000/meeting/'+id, errors:errors});
   }
 }

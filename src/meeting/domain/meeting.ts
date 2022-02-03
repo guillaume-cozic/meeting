@@ -1,3 +1,4 @@
+import { DomainException } from "../../../src/shared/Domain/exception/domain.exception";
 import { DomainError } from "./../../shared/Domain/Error";
 import { Agenda } from "./agenda";
 import { Item } from "./item";
@@ -19,7 +20,7 @@ export default class Meeting {
 
     plan(meetingRepository:MeetingRepository):void{
         if(this.date < Date.now()){
-            throw 'date in the past';
+            throw new DomainException('date in the past');
         }
         meetingRepository.save(this);
     }
