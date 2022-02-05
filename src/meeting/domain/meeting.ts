@@ -1,7 +1,9 @@
+import { MailService } from "src/shared/Domain/port/mail.service";
 import { DomainException } from "../../../src/shared/Domain/exception/domain.exception";
 import { DomainError } from "./../../shared/Domain/Error";
 import { Agenda } from "./agenda";
 import { Item } from "./item";
+import { Participant } from "./participant";
 import { MeetingRepository } from "./ports/meeting.repository";
 
 export default class Meeting {
@@ -34,13 +36,14 @@ export default class Meeting {
         meetingRepository.save(this);
     }
 
-    inviteParticipants(participantsToInvite:Array<Object>, meetingRepository:MeetingRepository):Array<DomainError>{
+    inviteParticipants(participantsToInvite:Array<Participant>, meetingRepository:MeetingRepository, mailService:MailService):Array<DomainError>{
         let errors:Array<DomainError> = [];
         participantsToInvite.forEach((participant) => {
             if(this.isParticipantAlreadyInvited(participant)){
                 errors.push(new DomainError('participant already invited', participant));
                 return;
             }
+            participant.inviteToMeeting(this.id, mailService);
             this.participants = [...this.participants, participant];    
         })    
         meetingRepository.save(this);
