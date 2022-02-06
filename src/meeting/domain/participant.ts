@@ -9,6 +9,6 @@ export class Participant{
     ){}
 
     inviteToMeeting(meetingId:string, mailService:MailService){
-        mailService.send(new MailInvitation());
+        mailService.send(new MailInvitation(meetingId, this.email, this.firstname, this.lastname));
     }
 }

@@ -37,7 +37,7 @@ describe('invite participants to meeting', () => {
     describe('should invite participants', () => {
 
         it('should invite one participant', async () => {
-            const participant = {name:'name', firstname: 'firstname', email: 'test@example.com'};
+            const participant = {lastname:'name', firstname: 'firstname', email: 'test@example.com'};
             let participants:Array<Object> = [participant];
 
             let meetingScheduled:Meeting = new Meeting('123456', now, 'name'); 
@@ -50,7 +50,7 @@ describe('invite participants to meeting', () => {
             expect(meetingSaved).toEqual(meetingExpected);
 
             let mailSent:Mailable = mailService.lastSent();
-            expect(mailSent).toEqual(new MailInvitation());
+            expect(mailSent).toEqual(new MailInvitation('123456', participant.email, participant.firstname, participant.lastname));
         });
     });
 
@@ -66,9 +66,9 @@ describe('invite participants to meeting', () => {
         });
 
         it('should not invite participant twice', async () => {
-            const participant = {name:'name', firstname: 'firstname', email: 'p1@example.com'};
-            const participant2 = {name:'name', firstname: 'firstname', email: 'p2@example.com'};
-            const participant3 = {name:'name', firstname: 'firstname', email: 'p3@example.com'};
+            const participant = {lastname:'name', firstname: 'firstname', email: 'p1@example.com'};
+            const participant2 = {lastname:'name', firstname: 'firstname', email: 'p2@example.com'};
+            const participant3 = {lastname:'name', firstname: 'firstname', email: 'p3@example.com'};
 
             let meetingScheduled:Meeting = new Meeting('123456', now, 'name', null, [newParticipant(participant), newParticipant(participant2)]); 
             meetingRepository.save(meetingScheduled);
